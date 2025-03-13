@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Apply Leave</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h2 class="text-center">Apply for Leave</h2>
+
+  <!-- Success Message -->
+  <div th:if="${param.success}" class="alert alert-success">
+    Leave request submitted successfully!
+  </div>
+
+  <form th:action="@{/applyLeave}" th:object="${leaveRequest}" method="post">
+    <div class="form-group">
+      <label>Employee Name</label>
+      <input type="text" class="form-control" th:field="*{employeeName}" required>
+    </div>
+
+    <div class="form-group">
+      <label>Leave Type</label>
+      <select class="form-control" th:field="*{leaveType}" required>
+        <option value="Sick">Sick Leave</option>
+        <option value="Casual">Casual Leave</option>
+        <option value="Annual">Annual Leave</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Start Date</label>
+      <input type="date" class="form-control" th:field="*{startDate}" required>
+    </div>
+
+    <div class="form-group">
+      <label>End Date</label>
+      <input type="date" class="form-control" th:field="*{endDate}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Leave Request</button>
+  </form>
+
+  <br>
+  <a href="/" class="btn btn-default">Back to Home</a>
+</div>
+</body>
+</html>
