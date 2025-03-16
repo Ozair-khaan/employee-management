@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "employees")
@@ -32,6 +33,19 @@ public class Employee {
     @Email(message = "Invalid email address")
 	@Column(name = "email")
 	private String email;
+
+	@NotBlank(message = "Password is required")
+	@Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
+	@Pattern(
+			regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$",
+			message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+	)
+	@Column(name = "password")
+	private String password;
+
+	@NotBlank(message = "Confirm Password is required")
+	@Column(name = "confirmPassword")
+	private String confirmPassword;
 
 	@NotBlank(message = "Salary is required")
     @Pattern(regexp = "^[0-9]+(\\.[0-9]{1,2})?$", message = "Invalid salary format")
@@ -147,6 +161,20 @@ public class Employee {
 	public void setUpdatedOn(Timestamp updatedOn) {
 		this.updatedOn = updatedOn;
 	}
-	
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 }
